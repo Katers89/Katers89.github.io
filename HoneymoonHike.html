@@ -11,6 +11,7 @@
   
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
   <script type="text/javascript" src="POTB.js"></script>
+  <script type="text/javascript" src="Car.js"></script>
 
   <style>
 		html, body {
@@ -33,19 +34,29 @@
 
 <script>
 
-	var mymap = L.map('map').setView([42.44204429992292, 19.8124729514594], 11.6);
+	var mymap = L.map('map').setView([42.44204429992292, 19.8124729514594], 11);
 	
-	var Stadia_StamenTerrain = L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_terrain/{z}/{x}/{y}{r}.{ext}', {
+	var Stadia_Outdoors = L.tileLayer('https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.{ext}', {
 	minZoom: 0,
-	maxZoom: 18,
-	attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://www.stamen.com/" target="_blank">Stamen Design</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	maxZoom: 20,
+	attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 	ext: 'png'
 	}).addTo(mymap);
 
 	var hike = L.geoJson(routes, {
   style: function (feature) {
     return {
-      color: feature.properties.color || 'orange',
+		color: 'teal',
+		fillColor: '#009999',
+		fillOpacity: 0.5
+    };
+  }
+}).addTo(mymap);
+
+	var ride = L.geoJson(travel, {
+  style: function (feature) {
+    return {
+      color: feature.properties.color || 'purple',
       weight: 3,
     };
   }
@@ -183,24 +194,24 @@ var info = L.control();
 	info.addTo(mymap);
 
 
-var legend = L.control({position: 'bottomright'});
-
+	var legend = L.control({position: 'bottomleft'});
 legend.onAdd = function (map) {
 
-    var div = L.DomUtil.create('div', 'info legend'),
-    grades = [],
-    labels = [];
+var div = L.DomUtil.create('div', 'info legend');
+labels = ['<strong>Categories</strong>'];
+categories = ['Road Surface','Signage','Line Markings','Roadside Hazards','Other'];
 
-    // loop through our density intervals and generate a label with a colored square for each interval
-    for (var i = 0; i < grades.length; i++) {
-        div.innerHTML +=
-            '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-            grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
-}
+for (var i = 0; i < categories.length; i++) {
 
+        div.innerHTML += 
+        labels.push(
+            '<i class="circle" style="background:' + getColor(categories[i]) + '"></i> ' +
+        (categories[i] ? categories[i] : '+'));
+
+    }
+    div.innerHTML = labels.join('<br>');
 return div;
 };
-
 legend.addTo(map);
 
 </script>
