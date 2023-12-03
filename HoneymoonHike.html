@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Peak of The Balkans Trail</title>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
+  
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script type="text/javascript" src="POTB.js"></script>
+  <script type="text/javascript" src="Car.js"></script>
+
+  <style>
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+		#map {
+			width: 100%;
+			height: 100%;
+            }
+
+	.info { padding: 6px 8px; font: 14px/16px Dubai Black; background: rgba(255,255,255,0.8); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px;} 
+	.info h4 { margin: 0 0 5px; color: #000; font-size: 18px}
+	</style>
+	
+</head>
+
+<body>
+<div id="map"></div>
+
+<script>
+
+	var mymap = L.map('map').setView([42.44204429992292, 19.8124729514594], 11);
+	
+	var Stadia_Outdoors = L.tileLayer('https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.{ext}', {
+	minZoom: 0,
+	maxZoom: 20,
+	attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	ext: 'png'
+	}).addTo(mymap);
+
+	var hike = L.geoJson(routes, {
+  style: function (feature) {
+    return {
+		color: 'teal',
+		fillColor: '#009999',
+		fillOpacity: 0.5
+    };
+  }
+}).addTo(mymap);
+
+	var ride = L.geoJson(travel, {
+  style: function (feature) {
+    return {
+      color: feature.properties.color || 'purple',
+      weight: 3,
+    };
+  }
+}).addTo(mymap);
+
+    L.marker([42.39679068534667, 19.77678489629855]).addTo(mymap)
+		.bindPopup("<b>Thethi National Park</b><br/><img src='Photos/18.jpg' height='250px'width='300px'/>");
+
+	L.marker([42.44116269835566, 19.88045274975607]).addTo(mymap)
+		.bindPopup("<b>Valbona National Park</b><br/><img src='Photos/21.jpg' height='250px'width='300px'/>");
+
+	L.marker([42.524826017699354, 19.843540112346453]).addTo(mymap)
+	.bindPopup("<b>Vusanje</b><br/><img src='Photos/8.jpg' height='250px'width='300px'/>");
+
+	L.marker([42.521488,19.786356]).addTo(mymap)
+		.bindPopup("<b>Prokletije National Park</b><br/><img src='Photos/11.jpg' height='250px'width='300px'/>");
+
+
+	L.circle([42.38859359263249, 19.781446130875242], 30, {
+		color: 'black',
+		fillColor: '#000000',
+		fillOpacity: 0.5
+	}).addTo(mymap).bindTooltip("Bujtina Polia <img src='Photos/19.jpg' height='250px'width='300px'/>");
+
+	L.circle([42.3897563767385, 19.78166577786001], 30, {
+		color: 'black',
+		fillColor: '#000000',
+		fillOpacity: 0.5
+	}).addTo(mymap).bindTooltip("Kisha e Thethit <img src='Photos/20.jpg' height='250px'width='300px'/>");
+
+		L.circle([42.38120018782695, 19.787909007179294], 30, {
+		color: 'black',
+		fillColor: '#000000',
+		fillOpacity: 0.5
+	}).addTo(mymap).bindTooltip("Kunora e Grunasit <img src='Photos/3.jpg' height='250px'width='300px'/>");
+
+	L.circle([42.377434, 19.794989], 30, {
+		color: 'black',
+		fillColor: '#000000',
+		fillOpacity: 0.5
+	}).addTo(mymap).bindTooltip("Waterfall Theth, Nderlysaj <img src='Photos/IMG_0885.jpg' height='250px'width='300px'/>");
+
+	L.circle([42.364445, 19.746271], 30, {
+		color: 'black',
+		fillColor: '#000000',
+		fillOpacity: 0.5
+	}).addTo(mymap).bindTooltip("Syri Kalter <img src='Photos/IMG_4084.jpg' height='250px'width='300px'/>");
+
+	L.circle([42.355259, 19.766539], 30, {
+		color: 'black',
+		fillColor: '#000000',
+		fillOpacity: 0.5
+	}).addTo(mymap).bindTooltip("Swimming hole, Nderlysaj <img src='Photos/2.jpg' height='250px'width='300px'/>");
+
+	L.circle([42.515953,19.760113], 30, {
+		color: 'black',
+		fillColor: '#000000',
+		fillOpacity: 0.5
+	}).addTo(mymap).bindTooltip("Maja e Vajushës <img src='Photos/10.jpg' height='250px'width='300px'/>");
+
+	L.circle([42.405758, 19.815191], 30, {
+		color: 'black',
+		fillColor: '#000000',
+		fillOpacity: 0.5
+	}).addTo(mymap).bindTooltip("Valbona Pass <img src='Photos/4.jpg' height='250px'width='300px'/>");
+
+	L.circle([42.439510, 19.877544], 30, {
+		color: 'black',
+		fillColor: '#000000',
+		fillOpacity: 0.5
+	}).addTo(mymap).bindTooltip("Guesthouse Kol Gjoni<img src='Photos/5.jpg' height='250px'width='300px'/>");
+
+	L.circle([42.501373, 19.904188], 30, {
+		color: 'black',
+		fillColor: '#000000',
+		fillOpacity: 0.5
+	}).addTo(mymap).bindTooltip("Border Crossing<img src='Photos/6.jpg' height='250px'width='300px'/>");
+
+	L.circle([42.513096, 19.886480], 30, {
+		color: 'black',
+		fillColor: '#000000',
+		fillOpacity: 0.5
+	}).addTo(mymap).bindTooltip("Shepherd's Rest Mountain Coffee and Tea House<img src='Photos/7.jpg' height='250px'width='300px'/>");
+
+	L.circle([42.522849670488654, 19.841388720347812], 30, {
+		color: 'black',
+		fillColor: '#000000',
+		fillOpacity: 0.5
+	}).addTo(mymap).bindTooltip("Canyon Grlja<img src='Photos/9.jpg' height='250px'width='300px'/>");
+
+	L.circle([42.522415, 19.845543], 30, {
+		color: 'black',
+		fillColor: '#000000',
+		fillOpacity: 0.5
+	}).addTo(mymap).bindTooltip("Guest House Vucetaj<img src='Photos/12.jpg' height='250px'width='300px'/>");
+
+	L.circle([42.511806, 19.834934], 30, {
+		color: 'black',
+		fillColor: '#000000',
+		fillOpacity: 0.5
+	}).addTo(mymap).bindTooltip("Oko Skakavice The Eye<img src='Photos/13.jpg' height='250px'width='300px'/>");
+
+	L.circle([42.478737, 19.787823], 30, {
+		color: 'black',
+		fillColor: '#000000',
+		fillOpacity: 0.5
+	}).addTo(mymap).bindTooltip("Mountain<img src='Photos/14.jpg' height='250px'width='300px'/>");
+
+	L.circle([42.459347, 19.773619], 30, {
+		color: 'black',
+		fillColor: '#000000',
+		fillOpacity: 0.5
+	}).addTo(mymap).bindTooltip("A Bunker<img src='Photos/16.jpg' height='250px'width='300px'/>");
+
+	L.circle([42.470703, 19.780886], 30, {
+		color: 'black',
+		fillColor: '#000000',
+		fillOpacity: 0.5
+	}).addTo(mymap).bindTooltip("Posta Verore e Kufirit<img src='Photos/15.jpg' height='250px'width='300px'/>");
+
+L.control.scale().addTo(mymap);
+
+var info = L.control();
+
+	info.onAdd = function (map) {
+		this._div = L.DomUtil.create('div', 'info');
+		this.update();
+		return this._div;
+	};
+
+	info.update = function (props) {
+		this._div.innerHTML = '<center><h4>Peak of the Balkans Trail</h4>';
+	};
+
+	info.addTo(mymap);
+
+
+	var legend = L.control({position: 'bottomleft'});
+legend.onAdd = function (map) {
+
+var div = L.DomUtil.create('div', 'info legend');
+labels = ['<strong>Categories</strong>'];
+categories = ['Road Surface','Signage','Line Markings','Roadside Hazards','Other'];
+
+for (var i = 0; i < categories.length; i++) {
+
+        div.innerHTML += 
+        labels.push(
+            '<i class="circle" style="background:' + getColor(categories[i]) + '"></i> ' +
+        (categories[i] ? categories[i] : '+'));
+
+    }
+    div.innerHTML = labels.join('<br>');
+return div;
+};
+legend.addTo(map);
+
+</script>
+
+</body>
+</html>
